@@ -2,6 +2,8 @@
 
 This is an [elixir] dictionary library providing information for words, often refered as "headword" in ligual domains.
 
+This library compile dictionary data into codes for accurater results. There are some libraries using algorithms to get results. However, so far the results are not good enough compared to dictionaries. It may change in future and hopefully we'll switch to a better approach.
+
 ## Usage
 
 ### Frequency
@@ -48,4 +50,4 @@ Please refer to [online document](http://hexdocs.pm/word_info) for more informat
 [IPA]: https://en.wiktionary.org/wiki/Wiktionary:IPA_pronunciation_key
 [CMU Dict]: http://www.speech.cs.cmu.edu/cgi-bin/cmudict
 [Brown Corpus of American English]: https://archive.org/details/BrownCorpus
-[cmudict-ipa](https://github.com/menelik3/cmudict-ipa)
+[cmudict-ipa]: https://github.com/menelik3/cmudict-ipa

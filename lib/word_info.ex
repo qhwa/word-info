@@ -31,6 +31,19 @@ defmodule WordInfo do
   ```
 
   The number `5499` means it's ranked at 5499 on frequncy.
+
+  ## Acknowledgements
+
+  * syllables - 43,000 words from [Gary Darby's DFF project](http://www.delphiforfun.org/programs/Syllables.htm)
+  * [IPA] style pronunciation - 125,000 word pronunciations from [cmudict-ipa] project
+  * [ARPABET] style pronunciation - 130,000 word pronunciations from [CMU Dict]
+  * frequency - usage frequency ranking of 33,000+ words from [Brown Corpus of American English] and [cmudict-ipa]
+
+  [ARPABET]: https://en.wikipedia.org/wiki/ARPABET
+  [IPA]: https://en.wiktionary.org/wiki/Wiktionary:IPA_pronunciation_key
+  [CMU Dict]: http://www.speech.cs.cmu.edu/cgi-bin/cmudict
+  [Brown Corpus of American English]: https://archive.org/details/BrownCorpus
+  [cmudict-ipa]: https://github.com/menelik3/cmudict-ipa
   """
 
   alias WordInfo.Data
