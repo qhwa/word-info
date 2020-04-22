@@ -1,9 +1,9 @@
-defmodule CmudictIpa do
+defmodule WordInfo do
   @moduledoc """
   Get the pronunciation and frequency information of a word.
   """
 
-  alias CmudictIpa.Data
+  alias WordInfo.Data
 
   @doc """
   Split the headword into syllables
@@ -17,10 +17,10 @@ defmodule CmudictIpa do
 
   ## Examples
 
-      iex> CmudictIpa.ipa("world")
+      iex> WordInfo.ipa("world")
       ["ˈwɝːld"]
 
-      iex> CmudictIpa.ipa("semi-colon")
+      iex> WordInfo.ipa("semi-colon")
       ["ˈsɛmiːˈkoʊlən,", "ˈsɛməˈkoʊlən"]
 
   """
@@ -42,10 +42,10 @@ defmodule CmudictIpa do
 
   ## Examples
 
-      iex> CmudictIpa.frequncy("traditional")
+      iex> WordInfo.frequncy("traditional")
       1365
 
-      iex> CmudictIpa.frequncy("some-unknown-word")
+      iex> WordInfo.frequncy("some-unknown-word")
       :unkown
   """
   @spec frequncy(binary) :: :unkown | pos_integer
