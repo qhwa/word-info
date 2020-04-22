@@ -19,14 +19,14 @@ iex> WordInfo.frequency("word")
 
 ```elixir
 iex> WordInfo.arpabet("mix")
-["IH0", "G", "Z", "IH1", "S", "T", "IH0", "NG"]
+["M", "IH1", "K", "S"]
 ```
 
 ### IPA pronunciation
 
 ```elixir
 iex> WordInfo.ipa("exsiting")
-["IH0", "G", "Z", "IH1", "S", "T", "IH0", "NG"]
+["ɪgˈzɪstɪŋ"]
 ```
 
 ### Syllables
@@ -46,6 +46,7 @@ Please refer to [online document](http://hexdocs.pm/word_info) for more informat
 * frequency - usage frequency ranking of 33,000+ words from [Brown Corpus of American English] and [cmudict-ipa]
 
 
+[Elixir]: https://elixir-lang.org
 [ARPABET]: https://en.wikipedia.org/wiki/ARPABET
 [IPA]: https://en.wiktionary.org/wiki/Wiktionary:IPA_pronunciation_key
 [CMU Dict]: http://www.speech.cs.cmu.edu/cgi-bin/cmudict
