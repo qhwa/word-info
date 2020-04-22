@@ -6,20 +6,27 @@ defmodule CmudictIpa do
   alias CmudictIpa.Data
 
   @doc """
+  Split the headword into syllables
+  """
+  def syllables(word) do
+    Map.get(Data.syllables(), word |> String.downcase())
+  end
+
+  @doc """
   Fetch the pronunciation of a word from CMU dictionary, with IPA pronu
 
   ## Examples
 
-      iex> CmudictIpa.pronounce("world")
+      iex> CmudictIpa.ipa("world")
       ["ˈwɝːld"]
 
-      iex> CmudictIpa.pronounce("semi-colon")
+      iex> CmudictIpa.ipa("semi-colon")
       ["ˈsɛmiːˈkoʊlən,", "ˈsɛməˈkoʊlən"]
 
   """
-  @spec pronounce(binary) :: [String.t()]
-  def pronounce(word) do
-    Map.get(Data.pronunciations(), word |> String.upcase())
+  @spec ipa(binary) :: [String.t()]
+  def ipa(word) do
+    Map.get(Data.ipa_pronun(), word |> String.upcase())
   end
 
   @doc """
