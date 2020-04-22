@@ -37,10 +37,7 @@ defmodule WordInfo.MixProject do
   end
 
   defp docs do
-    [
-      main: "readme",
-      extras: ~w[README.md]
-    ]
+    []
   end
 
   defp package do
