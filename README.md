@@ -1,21 +1,29 @@
-# CmudictIpa
+# CMU Dictionary with IPA
 
-**TODO: Add description**
+This is an exlixir wrapper of [cmudict-ipa](https://github.com/menelik3/cmudict-ipa), which uses the [CMU dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict) as its original data source.
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `cmudict_ipa` to your list of dependencies in `mix.exs`:
+### Syllables 
 
 ```elixir
-def deps do
-  [
-    {:cmudict_ipa, "~> 0.1.0"}
-  ]
-end
+iex> CmudictIPA.syllables("traditional")
+["tra", "di", "tion", "al"]
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/cmudict_ipa](https://hexdocs.pm/cmudict_ipa).
+### IPA pronunciation phonemes
+
+```elixir
+iex> CmudictIPA.pronounce("halfway")
+["ˈhæfˈweɪ"]
+```
+
+### Word frequency
+
+```elixir
+iex> CmudictIPA.frequency("scientist")
+5499
+```
+
+The number `5499` means it's ranked at 5499 on frequncy.
 
