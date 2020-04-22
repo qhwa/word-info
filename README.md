@@ -1,29 +1,51 @@
-# CMU Dictionary with IPA
+# WordInfo
 
-This is an exlixir wrapper of [cmudict-ipa](https://github.com/menelik3/cmudict-ipa), which uses the [CMU dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict) as its original data source.
+This is an [elixir] dictionary library providing information for words, often refered as "headword" in ligual domains.
 
 ## Usage
 
-### Syllables 
+### Frequency
 
 ```elixir
-iex> CmudictIPA.syllables("traditional")
-["tra", "di", "tion", "al"]
+iex> WordInfo.frequency("word")
+340
 ```
 
-### IPA pronunciation phonemes
+`340` means this word is the top 340 frequently used words.
+
+### ARPABET pronunciation
 
 ```elixir
-iex> CmudictIPA.pronounce("halfway")
-["ˈhæfˈweɪ"]
+iex> WordInfo.arpabet("mix")
+["IH0", "G", "Z", "IH1", "S", "T", "IH0", "NG"]
 ```
 
-### Word frequency
+### IPA pronunciation
 
 ```elixir
-iex> CmudictIPA.frequency("scientist")
-5499
+iex> WordInfo.ipa("exsiting")
+["IH0", "G", "Z", "IH1", "S", "T", "IH0", "NG"]
 ```
 
-The number `5499` means it's ranked at 5499 on frequncy.
+### Syllables
 
+```elixir
+iex> WordInfo.syllables("syllable")
+["syl", "la", "ble"]
+```
+
+Please refer to [online document](http://hexdocs.pm/word_info) for more information.
+
+## Acknowledgements
+
+* syllables - 43,000 words from [Gary Darby's DFF project](http://www.delphiforfun.org/programs/Syllables.htm)
+* [IPA] style pronunciation - 125,000 word pronunciations from [cmudict-ipa] project
+* [ARPABET] style pronunciation - 130,000 word pronunciations from [CMU Dict]
+* frequency - usage frequency ranking of 33,000+ words from [Brown Corpus of American English] and [cmudict-ipa]
+
+
+[ARPABET]: https://en.wikipedia.org/wiki/ARPABET
+[IPA]: https://en.wiktionary.org/wiki/Wiktionary:IPA_pronunciation_key
+[CMU Dict]: http://www.speech.cs.cmu.edu/cgi-bin/cmudict
+[Brown Corpus of American English]: https://archive.org/details/BrownCorpus
+[cmudict-ipa](https://github.com/menelik3/cmudict-ipa)

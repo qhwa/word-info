@@ -53,7 +53,7 @@ defmodule WordInfo.Data do
 
   frequncy_data =
     read(
-      "brown-frequency-list-with-ipa.txt",
+      "brown-frequency.txt",
       fn {line, i} -> {String.trim_trailing(line), i + 1} end,
       with_index: true,
       split: false

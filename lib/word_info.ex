@@ -1,6 +1,36 @@
 defmodule WordInfo do
   @moduledoc """
   Get the pronunciation and frequency information of a word.
+
+  ### Syllables 
+
+  ```elixir
+  iex> WordInfo.syllables("tradition")
+  ["tra", "di", "tion"]
+  ```
+
+  ### ARPABET pronunciation phonemes
+
+  ```elixir
+  iex> WordInfo.arpabet("halfway")
+  ["HH", "AE1", "F", "W", "EY1"]
+  ```
+
+  ### IPA pronunciation phonemes
+
+  ```elixir
+  iex> WordInfo.ipa("halfway")
+  ["ˈhæfˈweɪ"]
+  ```
+
+  ### Word frequency
+
+  ```elixir
+  iex> WordInfo.frequency("scientist")
+  5499
+  ```
+
+  The number `5499` means it's ranked at 5499 on frequncy.
   """
 
   alias WordInfo.Data
@@ -10,6 +40,24 @@ defmodule WordInfo do
   """
   def syllables(word) do
     Map.get(Data.syllables(), word |> String.downcase())
+  end
+
+  @doc """
+  Fetch the pronunciation of a word from CMU dictionary, in ARPABET format
+
+  See also: https://en.wikipedia.org/wiki/ARPABET
+
+  ## Examples
+
+      iex> WordInfo.arpabet("world")
+      ["W", "ER1", "L", "D"]
+
+      iex> WordInfo.arpabet("semi-colon")
+      ["S", "EH1", "M", "IY0", "K", "OW1", "L", "AH0", "N"]
+  """
+  @spec arpabet(binary) :: [String.t()] | :unkown
+  def arpabet(word) do
+    Map.get(Data.arpabet(), word |> String.upcase(), :unkown)
   end
 
   @doc """
@@ -24,9 +72,9 @@ defmodule WordInfo do
       ["ˈsɛmiːˈkoʊlən,", "ˈsɛməˈkoʊlən"]
 
   """
-  @spec ipa(binary) :: [String.t()]
+  @spec ipa(binary) :: [String.t()] | :unknown
   def ipa(word) do
-    Map.get(Data.ipa_pronun(), word |> String.upcase())
+    Map.get(Data.ipa_pronun(), word |> String.upcase(), :unknown)
   end
 
   @doc """
@@ -42,14 +90,14 @@ defmodule WordInfo do
 
   ## Examples
 
-      iex> WordInfo.frequncy("traditional")
+      iex> WordInfo.frequency("traditional")
       1365
 
-      iex> WordInfo.frequncy("some-unknown-word")
+      iex> WordInfo.frequency("some-unknown-word")
       :unkown
   """
-  @spec frequncy(binary) :: :unkown | pos_integer
-  def frequncy(word) do
+  @spec frequency(binary) :: :unkown | pos_integer
+  def frequency(word) do
     Map.get(Data.frequencies(), String.upcase(word), :unkown)
   end
 end
