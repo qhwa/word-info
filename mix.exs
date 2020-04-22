@@ -1,9 +1,9 @@
-defmodule CmudictIpa.MixProject do
+defmodule WordInfo.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :cmudict_ipa,
+      app: :word_info,
       version: "0.1.0",
       elixir: ">= 1.9.0",
       start_permanent: Mix.env() == :prod,
@@ -17,7 +17,7 @@ defmodule CmudictIpa.MixProject do
       ],
       docs: docs(),
       package: package(),
-      source_url: "https://github.com/qhwa/cmudict-ipa"
+      source_url: "https://github.com/qhwa/word-info"
     ]
   end
 
@@ -45,11 +45,11 @@ defmodule CmudictIpa.MixProject do
 
   defp package do
     [
-      name: "cmudict_ipa",
+      name: "word_info",
       files: ~w[lib mix.exs priv],
       licenses: ["MIT"],
       links: %{
-        "github" => "https://github.com/qhwa/cmudict-ipa"
+        "github" => "https://github.com/qhwa/word-info"
       }
     ]
   end

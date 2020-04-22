@@ -1,18 +1,35 @@
-defmodule CmudictIpa.Data.Reader do
+defmodule WordInfo.Data.Reader do
   @moduledoc false
-  def read(path, process \\ &{hd(&1), tl(&1)}) do
+  def read(path, process \\ &{hd(&1), tl(&1)}, opts \\ []) do
+    IO.puts(["[WordInfo] compiling dictionary data: ", path])
+
+    with_index =
+      if Keyword.get(opts, :with_index) do
+        &Stream.with_index(&1)
+      else
+        & &1
+      end
+
+    splitter =
+      if Keyword.get(opts, :split, true) do
+        &String.split/1
+      else
+        & &1
+      end
+
     Path.join([__DIR__, "../../priv/", path])
     |> File.stream!()
     |> Stream.reject(&String.starts_with?(&1, "#"))
     |> Stream.reject(&String.match?(&1, ~r/^\s+$/))
-    |> Stream.map(&String.split/1)
+    |> Stream.map(splitter)
+    |> with_index.()
     |> Stream.map(process)
     |> Map.new()
     |> Macro.escape()
   end
 end
 
-defmodule CmudictIpa.Data do
+defmodule WordInfo.Data do
   @moduledoc false
 
   import __MODULE__.Reader
@@ -35,9 +52,12 @@ defmodule CmudictIpa.Data do
   def ipa_pronun, do: unquote(ipa_pronun_data)
 
   frequncy_data =
-    read("brown-frequency-list-with-ipa.txt", fn [freq, w | _] ->
-      {w, String.to_integer(freq)}
-    end)
+    read(
+      "brown-frequency-list-with-ipa.txt",
+      fn {line, i} -> {String.trim_trailing(line), i + 1} end,
+      with_index: true,
+      split: false
+    )
 
   @doc """
   Frequency data from [Brown Corpus of American English](https://archive.org/details/BrownCorpus) via https://github.com/menelik3/cmudict-ipa
