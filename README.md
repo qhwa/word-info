@@ -13,7 +13,7 @@ iex> WordInfo.frequency("word")
 340
 ```
 
-`340` means this word is the last one of top 340 frequently used words.
+`340` means this word is the last one of top 340 frequently used words, among the whole 33,000 ones. Quite popular!
 
 ### ARPABET pronunciation
 
