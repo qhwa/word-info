@@ -4,6 +4,8 @@ defmodule WordInfo.MixProject do
   def project do
     [
       app: :word_info,
+      description:
+        "Some useful linguistic information for headwords, e.g syllables, pronunciation, and frequency of usage.",
       version: "0.1.0",
       elixir: ">= 1.9.0",
       start_permanent: Mix.env() == :prod,
@@ -37,7 +39,9 @@ defmodule WordInfo.MixProject do
   end
 
   defp docs do
-    []
+    [
+      main: "WordInfo"
+    ]
   end
 
   defp package do

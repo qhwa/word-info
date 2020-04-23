@@ -38,13 +38,17 @@ iex> WordInfo.syllables("syllable")
 
 Please refer to [online document](http://hexdocs.pm/word_info) for more information.
 
+
 ## Acknowledgements
+
+Here are the data sources of this library:
 
 * syllables - 43,000 words from [Gary Darby's DFF project](http://www.delphiforfun.org/programs/Syllables.htm)
 * [IPA] style pronunciation - 125,000 word pronunciations from [cmudict-ipa] project
 * [ARPABET] style pronunciation - 130,000 word pronunciations from [CMU Dict]
 * frequency - usage frequency ranking of 33,000+ words from [Brown Corpus of American English] and [cmudict-ipa]
 
+Without these open data, this library is impossible.
 
 [Elixir]: https://elixir-lang.org
 [ARPABET]: https://en.wikipedia.org/wiki/ARPABET

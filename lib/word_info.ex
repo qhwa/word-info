@@ -2,28 +2,28 @@ defmodule WordInfo do
   @moduledoc """
   Get the pronunciation and frequency information of a word.
 
-  ### Syllables 
+  **Syllables**
 
   ```elixir
   iex> WordInfo.syllables("tradition")
   ["tra", "di", "tion"]
   ```
 
-  ### ARPABET pronunciation phonemes
+  **ARPABET pronunciation phonemes**
 
   ```elixir
   iex> WordInfo.arpabet("halfway")
   ["HH", "AE1", "F", "W", "EY1"]
   ```
 
-  ### IPA pronunciation phonemes
+  **IPA pronunciation phonemes**
 
   ```elixir
   iex> WordInfo.ipa("halfway")
   ["ˈhæfˈweɪ"]
   ```
 
-  ### Word frequency
+  **Word frequency**
 
   ```elixir
   iex> WordInfo.frequency("scientist")
@@ -33,6 +33,8 @@ defmodule WordInfo do
   The number `5499` means it's ranked at 5499 on frequncy.
 
   ## Acknowledgements
+
+  Here are the data sources of this library, without which this library is impossible.
 
   * syllables - 43,000 words from [Gary Darby's DFF project](http://www.delphiforfun.org/programs/Syllables.htm)
   * [IPA] style pronunciation - 125,000 word pronunciations from [cmudict-ipa] project
@@ -50,15 +52,37 @@ defmodule WordInfo do
 
   @doc """
   Split the headword into syllables
+
+  ## Returnss
+
+  * `:unknown` if not found in the dictionary
+  * A list of syllables.
+
+  ## Example
+
+  ```elixir
+  iex> WordInfo.syllables("edition")
+  ["e", "di", "tion"]
+
+  iex> WordInfo.syllables("something-not-in-the-dictionary")
+  :unknown
+  ```
+
   """
+  @spec syllables(binary) :: [String.t()] | :unknown
   def syllables(word) do
-    Map.get(Data.syllables(), word |> String.downcase())
+    Map.get(Data.syllables(), word |> String.downcase(), :unknown)
   end
 
   @doc """
   Fetch the pronunciation of a word from CMU dictionary, in ARPABET format
 
   See also: https://en.wikipedia.org/wiki/ARPABET
+
+  ## Returnss
+
+  * `:unknown` if not found in the dictionary
+  * A list of ARPABET phonemes.
 
   ## Examples
 
@@ -76,6 +100,11 @@ defmodule WordInfo do
   @doc """
   Fetch the pronunciation of a word from CMU dictionary, with IPA pronu
 
+  ## Returnss
+
+  * `:unknown` if not found in the dictionary
+  * A list of IPA pronunciations, all for the full word.
+
   ## Examples
 
       iex> WordInfo.ipa("world")
@@ -84,6 +113,8 @@ defmodule WordInfo do
       iex> WordInfo.ipa("semi-colon")
       ["ˈsɛmiːˈkoʊlən,", "ˈsɛməˈkoʊlən"]
 
+      iex> WordInfo.ipa("lalalal")
+      :unknown
   """
   @spec ipa(binary) :: [String.t()] | :unknown
   def ipa(word) do
