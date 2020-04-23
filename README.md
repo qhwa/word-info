@@ -36,7 +36,7 @@ iex> WordInfo.syllables("syllable")
 ["syl", "la", "ble"]
 ```
 
-Please refer to [online document](http://hexdocs.pm/word_info) for more information.
+Please refer to [online document](http://hexdocs.pm/word_info/) for more information.
 
 
 ## Acknowledgements
