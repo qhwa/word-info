@@ -1,6 +1,6 @@
 # WordInfo
 
-This is an [elixir] dictionary library providing information for words, often refered as "headword" in ligual domains.
+This is an [elixir] dictionary library providing information for words, often refered as "headword" in linguistic domains.
 
 This library compile dictionary data into codes for accurater results. There are some libraries using algorithms to get results. However, so far the results are not good enough compared to dictionaries. It may change in future and hopefully we'll switch to a better approach.
 
