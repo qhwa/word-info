@@ -1,5 +1,35 @@
 defmodule WordInfo.EtsData do
   @moduledoc false
+
+  @external_resource syl_data = "priv/syllables.txt"
+  @external_resource ipa_data = "priv/cmudict-0.7b-ipa.txt"
+  @external_resource arp_data = "priv/cmudict-0.7b.txt"
+  @external_resource frq_data = "priv/brown-frequency.txt"
+
+  def generate do
+    %{}
+    |> merge(read_syllables(), :syllables)
+    |> merge(read_ipas(), :ipa)
+    |> merge(read_arpabets(), :arpabet)
+    |> merge(read_frequencies(), :frequency)
+    |> to_ets_dump()
+  end
+
+  defp read_syllables, do: read(unquote(syl_data))
+  defp read_ipas, do: read(unquote(ipa_data))
+  defp read_arpabets, do: read(unquote(arp_data))
+
+  defp read_frequencies,
+    do:
+      read(
+        unquote(frq_data),
+        fn {w, id} ->
+          {w |> String.downcase() |> String.trim(), id + 1}
+        end,
+        with_index: true,
+        split: false
+      )
+
   defp read(src, process \\ &{hd(&1), tl(&1)}, opts \\ []) do
     with_index =
       if Keyword.get(opts, :with_index) do
@@ -24,29 +54,6 @@ defmodule WordInfo.EtsData do
     |> Stream.map(process)
   end
 
-  def generate do
-    syl_map = read("priv/syllables.txt")
-    ipa_map = read("priv/cmudict-0.7b-ipa.txt")
-    arp_map = read("priv/cmudict-0.7b.txt")
-
-    frq_map =
-      read(
-        "priv/brown-frequency.txt",
-        fn {w, id} ->
-          {w |> String.downcase() |> String.trim(), id + 1}
-        end,
-        with_index: true,
-        split: false
-      )
-
-    %{}
-    |> merge(syl_map, :syllables)
-    |> merge(ipa_map, :ipa)
-    |> merge(arp_map, :arpabet)
-    |> merge(frq_map, :frequency)
-    |> to_ets_dump()
-  end
-
   defp merge(origin, map, key) do
     map
     |> Enum.reduce(origin, fn {word, data}, acc ->
@@ -57,7 +64,9 @@ defmodule WordInfo.EtsData do
   defp to_ets_dump(big_map) do
     tab = :ets.new(:word_info, [])
     for record <- big_map, do: :ets.insert(tab, record)
-    :ets.tab2file(tab, 'priv/merged.tab')
+
+    file = Path.join(:code.priv_dir(:word_info), "merged.tab") |> String.to_charlist()
+    :ets.tab2file(tab, file)
   end
 end
 
