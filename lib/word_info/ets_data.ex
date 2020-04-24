@@ -65,9 +65,13 @@ defmodule WordInfo.EtsData do
     tab = :ets.new(:word_info, [])
     for record <- big_map, do: :ets.insert(tab, record)
 
-    file = Path.join(:code.priv_dir(:word_info), "merged.tab") |> String.to_charlist()
-    :ets.tab2file(tab, file)
+    :ets.tab2file(tab, db_file())
   end
+
+  @db_name "merged.tab"
+
+  def db_file, do: Path.join(db_dir(), @db_name) |> String.to_charlist()
+  def db_dir, do: System.get_env("WORD_INFO_DB_DIR", :code.priv_dir(:word_info) |> to_string())
 end
 
 WordInfo.EtsData.generate()
