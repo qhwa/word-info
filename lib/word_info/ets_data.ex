@@ -7,12 +7,15 @@ defmodule WordInfo.EtsData do
   @external_resource frq_data = "priv/brown-frequency.txt"
 
   def generate do
-    %{}
-    |> merge(read_syllables(), :syllables)
-    |> merge(read_ipas(), :ipa)
-    |> merge(read_arpabets(), :arpabet)
-    |> merge(read_frequencies(), :frequency)
-    |> to_ets_dump()
+    {:ok, _} =
+      %{}
+      |> merge(read_syllables(), :syllables)
+      |> merge(read_ipas(), :ipa)
+      |> merge(read_arpabets(), :arpabet)
+      |> merge(read_frequencies(), :frequency)
+      |> to_ets_dump()
+
+    :ok
   end
 
   defp read_syllables, do: read(unquote(syl_data))
@@ -65,13 +68,17 @@ defmodule WordInfo.EtsData do
     tab = :ets.new(:word_info, [])
     for record <- big_map, do: :ets.insert(tab, record)
 
-    :ets.tab2file(tab, db_file())
+    dumped = db_file()
+    :ets.tab2file(tab, dumped)
+
+    {:ok, to_string(dumped)}
   end
 
-  @db_name "merged.tab"
+  @db_dir_env_key "WORD_INFO_DATA_DIR"
+  @db_name "word_info.tab"
 
   def db_file, do: Path.join(db_dir(), @db_name) |> String.to_charlist()
-  def db_dir, do: System.get_env("WORD_INFO_DB_DIR", :code.priv_dir(:word_info) |> to_string())
+  def db_dir, do: System.get_env(@db_dir_env_key, :code.priv_dir(:word_info) |> to_string())
 end
 
 WordInfo.EtsData.generate()
