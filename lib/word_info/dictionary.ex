@@ -1,4 +1,6 @@
 defmodule WordInfo.Dictionary do
+  @moduledoc false
+
   use Agent
 
   def start_link(_) do
