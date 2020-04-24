@@ -25,6 +25,7 @@ defmodule WordInfo.MixProject do
 
   def application do
     [
+      mod: {WordInfo, []},
       extra_applications: [:logger]
     ]
   end
@@ -47,7 +48,7 @@ defmodule WordInfo.MixProject do
   defp package do
     [
       name: "word_info",
-      files: ~w[lib mix.exs priv],
+      files: ~w[lib mix.exs priv/*.txt],
       licenses: ["MIT"],
       links: %{
         "github" => "https://github.com/qhwa/word-info"

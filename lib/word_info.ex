@@ -48,7 +48,14 @@ defmodule WordInfo do
   [cmudict-ipa]: https://github.com/menelik3/cmudict-ipa
   """
 
-  alias WordInfo.Data
+  use Application
+
+  @impl true
+  def start(_opts, _args) do
+    children = [WordInfo.Dictionary]
+
+    Supervisor.start_link(children, strategy: :one_for_one)
+  end
 
   @doc """
   Split the headword into syllables
@@ -70,9 +77,9 @@ defmodule WordInfo do
 
   """
   @spec syllables(binary) :: [String.t()] | :unknown
-  def syllables(word) do
-    Map.get(Data.syllables(), word |> String.downcase(), :unknown)
-  end
+  def syllables(word), do: lookup_in_dictionary(word, :syllables)
+
+  defp lookup_in_dictionary(word, key), do: WordInfo.Dictionary.lookup(word, key)
 
   @doc """
   Fetch the pronunciation of a word from CMU dictionary, in ARPABET format
@@ -92,10 +99,8 @@ defmodule WordInfo do
       iex> WordInfo.arpabet("semi-colon")
       ["S", "EH1", "M", "IY0", "K", "OW1", "L", "AH0", "N"]
   """
-  @spec arpabet(binary) :: [String.t()] | :unkown
-  def arpabet(word) do
-    Map.get(Data.arpabet(), word |> String.upcase(), :unkown)
-  end
+  @spec arpabet(binary) :: [String.t()] | :unknown
+  def arpabet(word), do: lookup_in_dictionary(word, :arpabet)
 
   @doc """
   Fetch the pronunciation of a word from CMU dictionary, with IPA pronu
@@ -117,9 +122,7 @@ defmodule WordInfo do
       :unknown
   """
   @spec ipa(binary) :: [String.t()] | :unknown
-  def ipa(word) do
-    Map.get(Data.ipa_pronun(), word |> String.upcase(), :unknown)
-  end
+  def ipa(word), do: lookup_in_dictionary(word, :ipa)
 
   @doc """
   Fetch the frequency rating of a word.
@@ -138,10 +141,8 @@ defmodule WordInfo do
       1365
 
       iex> WordInfo.frequency("some-unknown-word")
-      :unkown
+      :unknown
   """
-  @spec frequency(binary) :: :unkown | pos_integer
-  def frequency(word) do
-    Map.get(Data.frequencies(), String.upcase(word), :unkown)
-  end
+  @spec frequency(binary) :: :unknown | pos_integer
+  def frequency(word), do: lookup_in_dictionary(word, :frequency)
 end

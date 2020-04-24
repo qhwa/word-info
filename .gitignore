@@ -19,6 +19,8 @@ erl_crash.dump
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
 
+*.tab
+
 # Ignore package tarball (built via "mix hex.build").
 cmudict_ipa-*.tar
 
